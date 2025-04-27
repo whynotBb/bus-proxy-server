@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Request, Response } from "express";
 import serverless from "serverless-http";
 import axios from "axios";
 import cors from "cors";
@@ -11,7 +11,7 @@ const SEOUL_BUS_API_KEY = process.env.SEOUL_BUS_API_KEY!;
 app.use(cors());
 app.use("/api", router);
 
-router.get("/getStationsByPos", async (req, res) => {
+router.get("/getStationsByPos", async (req: Request, res: Response) => {
   try {
     const { tmX, tmY, radius } = req.query;
 
