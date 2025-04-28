@@ -1,8 +1,13 @@
 {
-  "compilerOptions": {
-    "moduleResolution": "node",
-    "target": "ES6",
-    "module": "ESNext",
-    "outDir": "./dist"
-  }
+	"compilerOptions": {
+		"target": "ES6",
+		"module": "CommonJS",
+		"outDir": "api",
+		"moduleResolution": "node",
+		"esModuleInterop": true,
+		"allowSyntheticDefaultImports": true,
+		"strict": true,
+		"skipLibCheck": true
+	},
+	"include": ["src/**/*.ts"]
 }
