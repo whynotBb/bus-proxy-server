@@ -18,7 +18,7 @@ router.get("/getStationsByPos", async (req, res) => {
 
 		const { tmX, tmY, radius } = req.query;
 
-		const response = await axios.get(`http://ws.bus.go.kr/api/rest/stationinfo/getStationByPos`, {
+		const response = await axios.get(`https://ws.bus.go.kr/api/rest/stationinfo/getStationByPos`, {
 			params: {
 				serviceKey: SEOUL_BUS_API_KEY,
 				tmX,
