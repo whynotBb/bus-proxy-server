@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "dev": "tsc && vercel dev",
-    "build": "tsc",
+    "dev": "vercel dev",  
+    "build": "vercel build",  
     "start": "vercel dev"
   },
   "keywords": [],
@@ -18,11 +18,5 @@
     "cors": "^2.8.5",
     "express": "^5.1.0",
     "serverless-http": "^3.2.0"
-  },
-  "devDependencies": {
-    "@types/cors": "^2.8.17",
-    "@types/express": "^5.0.1",
-    "@types/node": "^22.15.2",
-    "typescript": "^5.8.3"
   }
 }
