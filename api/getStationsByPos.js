@@ -24,6 +24,8 @@ app.use((0, cors_1.default)());
 app.use("/api", router);
 router.get("/getStationsByPos", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        console.log("Query params:", req.query);
+        console.log("API KEY:", SEOUL_BUS_API_KEY);
         const { tmX, tmY, radius } = req.query;
         const response = yield axios_1.default.get(`https://ws.bus.go.kr/api/rest/stationinfo/getStationByPos`, {
             params: {
