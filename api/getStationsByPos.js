@@ -12,7 +12,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.handler = void 0;
 const express_1 = __importDefault(require("express"));
 const serverless_http_1 = __importDefault(require("serverless-http"));
 const axios_1 = __importDefault(require("axios"));
@@ -44,4 +43,5 @@ router.get("/getStationsByPos", (req, res) => __awaiter(void 0, void 0, void 0, 
         res.status(500).json({ message: "Internal Server Error" });
     }
 }));
-exports.handler = (0, serverless_http_1.default)(app);
+// 서버리스 함수로 내보내기
+exports.default = (0, serverless_http_1.default)(app);

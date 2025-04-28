@@ -36,4 +36,5 @@ router.get("/getStationsByPos", async (req, res) => {
 	}
 });
 
-export const handler = serverless(app);
+// 서버리스 함수로 내보내기
+export default serverless(app);
