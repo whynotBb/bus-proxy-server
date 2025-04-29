@@ -2,8 +2,14 @@ const axios = require("axios");
 const xml2js = require("xml2js");
 
 module.exports = async (req, res) => {
+	const allowedOrigins = ["https://bbsbus-app.netlify.app", "http://localhost:5173"];
+
+	const origin = req.headers.origin;
+	if (allowedOrigins.includes(origin)) {
+		res.setHeader("Access-Control-Allow-Origin", origin);
+	}
 	// CORS 헤더 추가
-	res.setHeader("Access-Control-Allow-Origin", "https://bbsbus-app.netlify.app");
+	// res.setHeader("Access-Control-Allow-Origin", "https://bbsbus-app.netlify.app");
 	res.setHeader("Access-Control-Allow-Methods", "GET,OPTIONS");
 	res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 
