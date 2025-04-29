@@ -1,40 +1,23 @@
-const express = require("express");
-const serverless = require("serverless-http");
+// Vercel에서 자동 인식되는 함수형 구조
 const axios = require("axios");
-const cors = require("cors");
+const xml2js = require("xml2js");
 
-const app = express();
-const router = express.Router();
+module.exports = async (req, res) => {
+	const { tmX, tmY } = req.query;
 
-const SEOUL_BUS_API_KEY = process.env.SEOUL_BUS_API_KEY;
+	const serviceKey = encodeURIComponent("n3zbZ%2B%2BzACobqLxjpnF7be8B75BPXY4NbIggHE3dwiM908CKZKzxt9vBS%2FgWdeXm2aSlK8pw8thh64wgmu7Tug%3D%3D"); // URL 인코딩된 키
 
-app.use(cors());
-app.use("/api", router);
+	const url = `http://ws.bus.go.kr/api/rest/stationinfo/getStationByPos?serviceKey=${serviceKey}${tmX ? `&tmX=${encodeURIComponent(tmX)}` : ""}${tmY ? `&tmY=${encodeURIComponent(tmY)}` : ""}`;
 
-router.get("/getStationsByPos", async (req, res) => {
 	try {
-		console.log("Query params:", req.query);
-		console.log("API KEY:", SEOUL_BUS_API_KEY);
+		const response = await axios.get(url);
+		const xml = response.data;
 
-		const { tmX, tmY, radius } = req.query;
-
-		const response = await axios.get(`https://ws.bus.go.kr/api/rest/stationinfo/getStationByPos`, {
-			params: {
-				serviceKey: SEOUL_BUS_API_KEY,
-				tmX,
-				tmY,
-				radius,
-			},
-			responseType: "text",
+		xml2js.parseString(xml, { explicitArray: false }, (err, result) => {
+			if (err) return res.status(500).json({ error: "XML parsing failed" });
+			res.status(200).json(result);
 		});
-
-		res.header("Content-Type", "application/xml");
-		res.send(response.data);
 	} catch (error) {
-		console.error("Proxy error:", error);
-		res.status(500).json({ message: "Internal Server Error" });
+		res.status(500).json({ error: error.message });
 	}
-});
-
-// 서버리스 함수로 내보내기
-module.exports.handler = serverless(app);
+};
