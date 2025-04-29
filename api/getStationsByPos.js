@@ -3,7 +3,7 @@ const xml2js = require("xml2js");
 
 module.exports = async (req, res) => {
 	// CORS 헤더 추가
-	res.setHeader("Access-Control-Allow-Origin", "https://20250415-bus-app.vercel.app");
+	res.setHeader("Access-Control-Allow-Origin", "*");
 	res.setHeader("Access-Control-Allow-Methods", "GET,OPTIONS");
 	res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 
