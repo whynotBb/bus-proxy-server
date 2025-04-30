@@ -21,7 +21,7 @@ module.exports = async (req, res) => {
 
 	const { tmX, tmY, radius } = req.query;
 
-	const serviceKey = encodeURIComponent("n3zbZ++zACobqLxjpnF7be8B75BPXY4NbIggHE3dwiM908CKZKzxt9vBS/gWdeXm2aSlK8pw8thh64wgmu7Tug==");
+	const serviceKey = encodeURIComponent(process.env.BUS_API_KEY);
 
 	const url = `http://ws.bus.go.kr/api/rest/stationinfo/getStationByPos?serviceKey=${serviceKey}${tmX ? `&tmX=${encodeURIComponent(tmX)}` : ""}${tmY ? `&tmY=${encodeURIComponent(tmY)}` : ""}${radius ? `&radius=${encodeURIComponent(radius)}` : ""}`;
 

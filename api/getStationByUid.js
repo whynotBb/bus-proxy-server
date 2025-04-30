@@ -11,7 +11,7 @@ module.exports = async (req, res) => {
 	// CORS 헤더 추가
 	// res.setHeader("Access-Control-Allow-Origin", "https://bbsbus-app.netlify.app");
 	res.setHeader("Access-Control-Allow-Methods", "GET,OPTIONS");
-	res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+	res.setHeader("Access-Control-Allow-Headers", "");
 
 	// OPTIONS 요청 처리 (preflight)
 	if (req.method === "OPTIONS") {
@@ -20,8 +20,11 @@ module.exports = async (req, res) => {
 	}
 
 	const { arsId } = req.query;
+	if (!arsId) {
+		return res.status(400).json({ error: "Missing required query parameter: arsId" });
+	}
 
-	const serviceKey = encodeURIComponent("n3zbZ++zACobqLxjpnF7be8B75BPXY4NbIggHE3dwiM908CKZKzxt9vBS/gWdeXm2aSlK8pw8thh64wgmu7Tug==");
+	const serviceKey = encodeURIComponent(process.env.BUS_API_KEY);
 
 	const url = `http://ws.bus.go.kr/api/rest/stationinfo/getStationByUid?serviceKey=${serviceKey}${arsId ? `&arsId=${encodeURIComponent(arsId)}` : ""}`;
 
@@ -34,6 +37,7 @@ module.exports = async (req, res) => {
 			res.status(200).json(result);
 		});
 	} catch (error) {
+		console.error("Bus API error:", error.response?.data || error.message);
 		res.status(500).json({ error: error.message });
 	}
 };
