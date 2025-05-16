@@ -24,7 +24,7 @@ module.exports = async (req, res) => {
 
 	const serviceKey = encodeURIComponent(process.env.BUS_API_KEY);
 
-	const url = `http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst?serviceKey=${serviceKey}&returnType=JSON&pageNo=1&numOfRows=10${nx ? `&nx=${encodeURIComponent(nx)}` : ""}${ny ? `&ny=${encodeURIComponent(ny)}` : ""}${base_date ? `&base_date=${encodeURIComponent(base_date)}` : ""}${base_time ? `&base_time=${encodeURIComponent(base_time)}` : ""}`;
+	const url = `http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst?serviceKey=${serviceKey}&dataType=JSON&pageNo=1&numOfRows=10${nx ? `&nx=${encodeURIComponent(nx)}` : ""}${ny ? `&ny=${encodeURIComponent(ny)}` : ""}${base_date ? `&base_date=${encodeURIComponent(base_date)}` : ""}${base_time ? `&base_time=${encodeURIComponent(base_time)}` : ""}`;
 
 	try {
 		const response = await axios.get(url, { timeout: 10000 }); // 10초 타임아웃
