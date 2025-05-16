@@ -24,7 +24,7 @@ module.exports = async (req, res) => {
 
 	const serviceKey = encodeURIComponent(process.env.BUS_API_KEY);
 
-	const url = `http://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getNearbyMsrstnList?serviceKey=${serviceKey}&returnType=json&tmX=${tmX}&tmY=${tmY}`;
+	const url = `http://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getNearbyMsrstnList?serviceKey=${serviceKey}&returnType='json'&tmX=${tmX}&tmY=${tmY}`;
 
 	try {
 		const response = await axios.get(url, { timeout: 10000 }); // 10초 타임아웃
