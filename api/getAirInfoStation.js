@@ -1,5 +1,4 @@
 const axios = require("axios");
-const xml2js = require("xml2js");
 
 module.exports = async (req, res) => {
 	const allowedOrigins = ["https://bbsbus-app.netlify.app", "http://localhost:5173"];
@@ -10,7 +9,7 @@ module.exports = async (req, res) => {
 	}
 	// CORS 헤더 추가
 	res.setHeader("Access-Control-Allow-Methods", "GET,OPTIONS");
-	res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+	res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization, Origin, X-Requested-With");
 
 	// OPTIONS 요청 처리 (preflight)
 	if (req.method === "OPTIONS") {
@@ -28,10 +27,12 @@ module.exports = async (req, res) => {
 	const url = `http://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getNearbyMsrstnList?serviceKey=${serviceKey}&returnType=json&tmX=${tmX}&tmY=${tmY}`;
 
 	try {
-		const response = await axios.get(url);
+		const response = await axios.get(url, { timeout: 10000 }); // 10초 타임아웃
+
 		res.status(200).json(response.data);
 	} catch (error) {
-		console.error("Bus API error:", error.response?.data || error.message);
+		console.error("near by station API error:", error.response?.data || error.message || error);
+
 		res.status(500).json({ error: error.message });
 	}
 };
