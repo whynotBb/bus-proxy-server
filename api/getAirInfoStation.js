@@ -22,7 +22,7 @@ module.exports = async (req, res) => {
 		return res.status(400).json({ error: "Missing required query parameter: tmX, tmY" });
 	}
 
-	const serviceKey = encodeURIComponent(process.env.ENCODING_API_KEY);
+	const serviceKey = encodeURIComponent(process.env.BUS_API_KEY);
 
 	const url = `http://apis.data.go.kr/B552584/MsrstnInfoInqireSvc/getNearbyMsrstnList?serviceKey=${serviceKey}&returnType=json${tmX ? `&tmX=${encodeURIComponent(tmX)}` : ""}${tmY ? `&tmY=${encodeURIComponent(tmY)}` : ""}`;
 
