@@ -17,9 +17,9 @@ module.exports = async (req, res) => {
 		return;
 	}
 
-	const { stationName } = req.query;
-	if (!stationName) {
-		return res.status(400).json({ error: "Missing required query parameter: stationName" });
+	const { nx, ny, base_date, base_time } = req.query;
+	if (!nx || !ny || !base_date || !base_time) {
+		return res.status(400).json({ error: "Missing required query parameter: req" });
 	}
 
 	const serviceKey = encodeURIComponent(process.env.BUS_API_KEY);
