@@ -9,9 +9,8 @@ module.exports = async (req, res) => {
 		res.setHeader("Access-Control-Allow-Origin", origin);
 	}
 	// CORS 헤더 추가
-	// res.setHeader("Access-Control-Allow-Origin", "https://bbsbus-app.netlify.app");
 	res.setHeader("Access-Control-Allow-Methods", "GET,OPTIONS");
-	res.setHeader("Access-Control-Allow-Headers", "");
+	res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
 
 	// OPTIONS 요청 처리 (preflight)
 	if (req.method === "OPTIONS") {
@@ -26,17 +25,11 @@ module.exports = async (req, res) => {
 
 	const serviceKey = encodeURIComponent(process.env.BUS_API_KEY);
 
-	// const url = `http://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getNearbyMsrstnList?serviceKey=${serviceKey}&returnType='json'&tmX=${tmX}&tmY=${tmY}`;
-	const url = `http://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getNearbyMsrstnList?serviceKey=${serviceKey}&tmX=${tmX}&tmY=${tmY}`;
+	const url = `http://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getNearbyMsrstnList?serviceKey=${serviceKey}&returnType=json&tmX=${tmX}&tmY=${tmY}`;
 
 	try {
 		const response = await axios.get(url);
-		const xml = response.data;
-
-		xml2js.parseString(xml, { explicitArray: false }, (err, result) => {
-			if (err) return res.status(500).json({ error: "XML parsing failed" });
-			res.status(200).json(result);
-		});
+		res.status(200).json(response.data);
 	} catch (error) {
 		console.error("Bus API error:", error.response?.data || error.message);
 		res.status(500).json({ error: error.message });
