@@ -19,14 +19,14 @@ module.exports = async (req, res) => {
 		return;
 	}
 
-	const { x, y } = req.query;
-	if (!x || !y) {
-		return res.status(400).json({ error: "Missing required query parameter: stationName" });
+	const { tmX, tmY } = req.query;
+	if (!tmX || !tmY) {
+		return res.status(400).json({ error: "Missing required query parameter: tmX, tmY" });
 	}
 
 	const serviceKey = encodeURIComponent(process.env.BUS_API_KEY);
 
-	const url = `http://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getNearbyMsrstnList?serviceKey=${serviceKey}&returnType='json'&tmX=${x}&tmY=${y}`;
+	const url = `http://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getNearbyMsrstnList?serviceKey=${serviceKey}&returnType='json'&tmX=${tmX}&tmY=${tmY}`;
 
 	try {
 		const response = await axios.get(url);
