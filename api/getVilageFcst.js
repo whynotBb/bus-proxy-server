@@ -1,3 +1,4 @@
+// 단기예보 조회
 const axios = require("axios");
 
 module.exports = async (req, res) => {
@@ -24,14 +25,14 @@ module.exports = async (req, res) => {
 
 	const serviceKey = encodeURIComponent(process.env.BUS_API_KEY);
 
-	const url = `http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtFcst?serviceKey=${serviceKey}&dataType=JSON&pageNo=1&numOfRows=100${nx ? `&nx=${encodeURIComponent(nx)}` : ""}${ny ? `&ny=${encodeURIComponent(ny)}` : ""}${base_date ? `&base_date=${encodeURIComponent(base_date)}` : ""}${base_time ? `&base_time=${encodeURIComponent(base_time)}` : ""}`;
+	const url = `http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst?serviceKey=${serviceKey}&dataType=JSON&pageNo=1&numOfRows=1000${nx ? `&nx=${encodeURIComponent(nx)}` : ""}${ny ? `&ny=${encodeURIComponent(ny)}` : ""}${base_date ? `&base_date=${encodeURIComponent(base_date)}` : ""}${base_time ? `&base_time=${encodeURIComponent(base_time)}` : ""}`;
 
 	try {
 		const response = await axios.get(url);
 
 		res.status(200).json(response.data);
 	} catch (error) {
-		console.error("getUltraSrtFcst API error:", error.response?.data || error.message || error);
+		console.error("near by station API error:", error.response?.data || error.message || error);
 
 		res.status(500).json({ error: error.message });
 	}
