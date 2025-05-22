@@ -9,7 +9,6 @@ module.exports = async (req, res) => {
 		res.setHeader("Access-Control-Allow-Origin", origin);
 	}
 
-	const serviceKey = encodeURIComponent(process.env.KAKAO_REST_API_KEY);
 	// CORS 헤더 추가
 	res.setHeader("Access-Control-Allow-Methods", "GET,OPTIONS");
 	res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization, Origin, X-Requested-With");
@@ -24,14 +23,14 @@ module.exports = async (req, res) => {
 	if (!x || !y) {
 		return res.status(400).json({ error: "Missing required query parameter: req" });
 	}
-
+	const serviceKey = encodeURIComponent(process.env.KAKAO_REST_API_KEY);
 	const url = `https://dapi.kakao.com/v2/local/geo/coord2address`;
 
 	try {
 		const response = await axios.get(url, {
 			params: { x, y },
 			headers: {
-				Authorization: `KakaoAK ${process.env.KAKAO_REST_API_KEY}`,
+				Authorization: `KakaoAK ${serviceKey}`,
 			},
 		});
 
