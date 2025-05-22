@@ -5,11 +5,14 @@ module.exports = async (req, res) => {
 	const allowedOrigins = ["https://bbsbus-app.netlify.app", "http://localhost:5173"];
 
 	const origin = req.headers.origin;
+	console.log("요청 Origin:", origin);
 	if (allowedOrigins.includes(origin)) {
 		res.setHeader("Access-Control-Allow-Origin", origin);
 	}
 
 	// CORS 헤더 추가
+	// 무조건 헤더 세팅 (운영 시에는 조건 검사를 넣을 것)
+	res.setHeader("Access-Control-Allow-Origin", allowedOrigins.includes(origin) ? origin : "*");
 	res.setHeader("Access-Control-Allow-Methods", "GET,OPTIONS");
 	res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization, Origin, X-Requested-With");
 
