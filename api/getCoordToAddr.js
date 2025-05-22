@@ -6,20 +6,20 @@ module.exports = async (req, res) => {
 
 	const origin = req.headers.origin;
 	console.log("요청 Origin:", origin);
-	// if (allowedOrigins.includes(origin)) {
-	// 	res.setHeader("Access-Control-Allow-Origin", origin);
-	// }
+	if (allowedOrigins.includes(origin)) {
+		res.setHeader("Access-Control-Allow-Origin", origin);
+	}
 
 	// CORS 헤더 추가
 	// 무조건 헤더 세팅 (운영 시에는 조건 검사를 넣을 것)
-	if (allowedOrigins.includes(origin)) {
-		res.setHeader("Access-Control-Allow-Origin", origin);
-	} else {
-		res.setHeader("Access-Control-Allow-Origin", "*"); // 개발용 (운영에선 제거!)
-	}
+	// if (allowedOrigins.includes(origin)) {
+	// 	res.setHeader("Access-Control-Allow-Origin", origin);
+	// } else {
+	// 	res.setHeader("Access-Control-Allow-Origin", "*"); // 개발용 (운영에선 제거!)
+	// }
 	res.setHeader("Access-Control-Allow-Methods", "GET,OPTIONS");
 	res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization, Origin, X-Requested-With");
-	res.setHeader("Vary", "Origin"); // CDN 캐시 문제 방지
+	// res.setHeader("Vary", "Origin"); // CDN 캐시 문제 방지
 
 	// OPTIONS 요청 처리 (preflight)
 	if (req.method === "OPTIONS") {
