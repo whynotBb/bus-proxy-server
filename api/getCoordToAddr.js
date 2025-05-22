@@ -6,9 +6,9 @@ module.exports = async (req, res) => {
 
 	const origin = req.headers.origin;
 	console.log("요청 Origin:", origin);
-	if (allowedOrigins.includes(origin)) {
-		res.setHeader("Access-Control-Allow-Origin", origin);
-	}
+	// if (allowedOrigins.includes(origin)) {
+	// 	res.setHeader("Access-Control-Allow-Origin", origin);
+	// }
 
 	// CORS 헤더 추가
 	// 무조건 헤더 세팅 (운영 시에는 조건 검사를 넣을 것)
