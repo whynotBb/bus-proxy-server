@@ -25,7 +25,7 @@ module.exports = async (req, res) => {
 
 	const serviceKey = encodeURIComponent(process.env.BUS_API_KEY);
 
-	const url = `http://apis.data.go.kr/1360000/MidFcstInfoService/getMidLandFcst?serviceKey=${serviceKey}&dataType=JSON&pageNo=1&numOfRows=1000${regId ? `&nx=${encodeURIComponent(regId)}` : ""}${tmFc ? `&ny=${encodeURIComponent(tmFc)}` : ""}`;
+	const url = `http://apis.data.go.kr/1360000/MidFcstInfoService/getMidLandFcst?serviceKey=${serviceKey}&dataType=JSON&pageNo=1&numOfRows=10${regId ? `&nx=${encodeURIComponent(regId)}` : ""}${tmFc ? `&ny=${encodeURIComponent(tmFc)}` : ""}`;
 
 	try {
 		const response = await axios.get(url);
